@@ -1,0 +1,62 @@
+SQL> create table students(studname varchar(20),regno number(4));
+
+Table created.
+
+SQL> select * from students;
+
+no rows selected
+
+SQL> insert into students values('Sairam',21);
+
+1 row created.
+
+SQL> select * from students;
+
+STUDNAME                  REGNO                                                 
+-------------------- ----------                                                 
+Sairam                       21                                                 
+
+SQL> alter table students add(cgpa number(6));
+
+Table altered.
+
+SQL> select * from students;
+
+STUDNAME                  REGNO       CGPA                                      
+-------------------- ---------- ----------                                      
+Sairam                       21                                                 
+
+SQL> alter table students drop column cgpa;
+
+Table altered.
+
+SQL> select * from students;
+
+STUDNAME                  REGNO                                                 
+-------------------- ----------                                                 
+Sairam                       21                                                 
+
+SQL> rename students to l2students;
+
+Table renamed.
+
+SQL> select * from students;
+select * from students
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> truncate table l2students;
+
+Table truncated.
+
+SQL> select * from l2students;
+
+no rows selected
+
+SQL> drop table l2students;
+
+Table dropped.
+
+SQL> spool off
