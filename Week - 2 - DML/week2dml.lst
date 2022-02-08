@@ -1,0 +1,210 @@
+SQL> create table students(studname varchar(20),age number(3));
+
+Table created.
+
+SQL> select * from students
+  2  
+SQL> insert into students values('&studname', &age);
+Enter value for studname: sairam
+Enter value for age: 19
+old   1: insert into students values('&studname', &age)
+new   1: insert into students values('sairam', 19)
+
+1 row created.
+
+SQL> /
+Enter value for studname: dushyant
+Enter value for age: 19
+old   1: insert into students values('&studname', &age)
+new   1: insert into students values('dushyant', 19)
+
+1 row created.
+
+SQL> /
+Enter value for studname: roehit
+Enter value for age: 19
+old   1: insert into students values('&studname', &age)
+new   1: insert into students values('roehit', 19)
+
+1 row created.
+
+SQL> /
+Enter value for studname: abhi
+Enter value for age: 19
+old   1: insert into students values('&studname', &age)
+new   1: insert into students values('abhi', 19)
+
+1 row created.
+
+SQL> desc students;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STUDNAME                                           VARCHAR2(20)
+ AGE                                                NUMBER(3)
+
+SQL> select * from students;
+
+STUDNAME                    AGE                                                 
+-------------------- ----------                                                 
+sairam                       19                                                 
+dushyant                     19                                                 
+roehit                       19                                                 
+abhi                         19                                                 
+
+SQL> alter table students add(role char(15));
+
+Table altered.
+
+SQL> select * from students;
+
+STUDNAME                    AGE ROLE                                            
+-------------------- ---------- ---------------                                 
+sairam                       19                                                 
+dushyant                     19                                                 
+roehit                       19                                                 
+abhi                         19                                                 
+
+SQL> update students set role='entrepreneur' where studname='sairam';
+
+1 row updated.
+
+SQL> select * from students;
+
+STUDNAME                    AGE ROLE                                            
+-------------------- ---------- ---------------                                 
+sairam                       19 entrepreneur                                    
+dushyant                     19                                                 
+roehit                       19                                                 
+abhi                         19                                                 
+
+SQL> update students set role='developer' where studname='dushyant';
+
+1 row updated.
+
+SQL> update students set role='manager' where studname='roehit';
+
+1 row updated.
+
+SQL> update students set role='analyst' where studname='abhi';
+
+1 row updated.
+
+SQL> select * from students;
+
+STUDNAME                    AGE ROLE                                            
+-------------------- ---------- ---------------                                 
+sairam                       19 entrepreneur                                    
+dushyant                     19 developer                                       
+roehit                       19 manager                                         
+abhi                         19 analyst                                         
+
+SQL> delete from students where age=19;
+
+4 rows deleted.
+
+SQL> select * from students;
+
+no rows selected
+
+SQL> create table players(name varchar(20), jersey number(3));
+
+Table created.
+
+SQL> insert into players values('&name', &jersey);
+Enter value for name: dhoni
+Enter value for jersey: 7
+old   1: insert into players values('&name', &jersey)
+new   1: insert into players values('dhoni', 7)
+
+1 row created.
+
+SQL> /
+Enter value for name: jadeja
+Enter value for jersey: 8
+old   1: insert into players values('&name', &jersey)
+new   1: insert into players values('jadeja', 8)
+
+1 row created.
+
+SQL> desc players;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NAME                                               VARCHAR2(20)
+ JERSEY                                             NUMBER(3)
+
+SQL> select * from players;
+
+NAME                     JERSEY                                                 
+-------------------- ----------                                                 
+dhoni                         7                                                 
+jadeja                        8                                                 
+
+SQL> alter table players add(role char(15));
+
+Table altered.
+
+SQL> update students set role='captain' where name='dhoni';
+update students set role='captain' where name='dhoni'
+                                         *
+ERROR at line 1:
+ORA-00904: "NAME": invalid identifier 
+
+
+SQL> update players set role='captain' where name='dhoni';
+
+1 row updated.
+
+SQL> update players set role='ar' where name='jadeja';
+
+1 row updated.
+
+SQL> select * from players;
+
+NAME                     JERSEY ROLE                                            
+-------------------- ---------- ---------------                                 
+dhoni                         7 captain                                         
+jadeja                        8 ar                                              
+
+SQL> alter table players drop role;
+alter table players drop role
+                         *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> alter table players drop "role";
+alter table players drop "role"
+                         *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> alter table players drop column "role";
+alter table players drop column "role"
+                                *
+ERROR at line 1:
+ORA-00904: "role": invalid identifier 
+
+
+SQL> alter table players drop column role;
+
+Table altered.
+
+SQL> select * from players;
+
+NAME                     JERSEY                                                 
+-------------------- ----------                                                 
+dhoni                         7                                                 
+jadeja                        8                                                 
+
+SQL> delete from players where jersey=8;
+
+1 row deleted.
+
+SQL> select * from players;
+
+NAME                     JERSEY                                                 
+-------------------- ----------                                                 
+dhoni                         7                                                 
+
+SQL> spool off
