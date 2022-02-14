@@ -1,0 +1,380 @@
+SQL> create table emp(empno number(20), ename varchar2(20), job varchar2(10), deptno number(3), sal number(7,2));
+create table emp(empno number(20), ename varchar2(20), job varchar2(10), deptno number(3), sal number(7,2))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create table devs(devno number(20),dname varchar2(20), job varchar2(10), deptno number(3),sal number(7,2));
+
+Table created.
+
+SQL> insert into devs values(&devno,'&dname','&job',&deptno,&sal);
+Enter value for devno: 1
+Enter value for dname: sairam
+Enter value for job: dev
+Enter value for deptno: 10
+Enter value for sal: 50000
+old   1: insert into devs values(&devno,'&dname','&job',&deptno,&sal)
+new   1: insert into devs values(1,'sairam','dev',10,50000)
+
+1 row created.
+
+SQL> /
+Enter value for devno: 2
+Enter value for dname: roehit
+Enter value for job: manager
+Enter value for deptno: 20
+Enter value for sal: 50000
+old   1: insert into devs values(&devno,'&dname','&job',&deptno,&sal)
+new   1: insert into devs values(2,'roehit','manager',20,50000)
+
+1 row created.
+
+SQL> /
+Enter value for devno: dushyant
+Enter value for dname: dushyant29
+Enter value for job: mentor
+Enter value for deptno: 40
+Enter value for sal: 50000
+old   1: insert into devs values(&devno,'&dname','&job',&deptno,&sal)
+new   1: insert into devs values(dushyant,'dushyant29','mentor',40,50000)
+insert into devs values(dushyant,'dushyant29','mentor',40,50000)
+                        *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> /
+Enter value for devno: 3
+Enter value for dname: dushyant
+Enter value for job: mentor
+Enter value for deptno: 40
+Enter value for sal: 50000
+old   1: insert into devs values(&devno,'&dname','&job',&deptno,&sal)
+new   1: insert into devs values(3,'dushyant','mentor',40,50000)
+
+1 row created.
+
+SQL> /
+Enter value for devno: 4
+Enter value for dname: abhi
+Enter value for job: support
+Enter value for deptno: 50
+Enter value for sal: 40000
+old   1: insert into devs values(&devno,'&dname','&job',&deptno,&sal)
+new   1: insert into devs values(4,'abhi','support',50,40000)
+
+1 row created.
+
+SQL> /
+Enter value for devno: lavan
+Enter value for dname: lavan14
+Enter value for job: designer
+Enter value for deptno: 60
+Enter value for sal: 60000
+old   1: insert into devs values(&devno,'&dname','&job',&deptno,&sal)
+new   1: insert into devs values(lavan,'lavan14','designer',60,60000)
+insert into devs values(lavan,'lavan14','designer',60,60000)
+                        *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> /
+Enter value for devno: 5
+Enter value for dname: lavan
+Enter value for job: designer
+Enter value for deptno: 60
+Enter value for sal: 60000
+old   1: insert into devs values(&devno,'&dname','&job',&deptno,&sal)
+new   1: insert into devs values(5,'lavan','designer',60,60000)
+
+1 row created.
+
+SQL> /
+Enter value for devno: 6
+Enter value for dname: seshu
+Enter value for job: analyst
+Enter value for deptno: 70
+Enter value for sal: 60000
+old   1: insert into devs values(&devno,'&dname','&job',&deptno,&sal)
+new   1: insert into devs values(6,'seshu','analyst',70,60000)
+
+1 row created.
+
+SQL> select * from devs;
+
+     DEVNO DNAME                JOB            DEPTNO        SAL                
+---------- -------------------- ---------- ---------- ----------                
+         1 sairam               dev                10      50000                
+         2 roehit               manager            20      50000                
+         3 dushyant             mentor             40      50000                
+         4 abhi                 support            50      40000                
+         5 lavan                designer           60      60000                
+         6 seshu                analyst            70      60000                
+
+6 rows selected.
+
+SQL> desc devs;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEVNO                                              NUMBER(20)
+ DNAME                                              VARCHAR2(20)
+ JOB                                                VARCHAR2(10)
+ DEPTNO                                             NUMBER(3)
+ SAL                                                NUMBER(7,2)
+
+SQL> delete from devs where job='designer';
+
+1 row deleted.
+
+SQL> select * from devs;
+
+     DEVNO DNAME                JOB            DEPTNO        SAL                
+---------- -------------------- ---------- ---------- ----------                
+         1 sairam               dev                10      50000                
+         2 roehit               manager            20      50000                
+         3 dushyant             mentor             40      50000                
+         4 abhi                 support            50      40000                
+         6 seshu                analyst            70      60000                
+
+SQL> select sal from devs order by sal;
+
+       SAL                                                                      
+----------                                                                      
+     40000                                                                      
+     50000                                                                      
+     50000                                                                      
+     50000                                                                      
+     60000                                                                      
+
+SQL> select sal from devs order by sal desc;
+
+       SAL                                                                      
+----------                                                                      
+     60000                                                                      
+     50000                                                                      
+     50000                                                                      
+     50000                                                                      
+     40000                                                                      
+
+SQL> select deptno from devs where deptno=10;
+
+    DEPTNO                                                                      
+----------                                                                      
+        10                                                                      
+
+SQL> select dname,deptno from devs where deptno=10;
+
+DNAME                    DEPTNO                                                 
+-------------------- ----------                                                 
+sairam                       10                                                 
+
+SQL> select distinct deptno from devs;
+
+    DEPTNO                                                                      
+----------                                                                      
+        50                                                                      
+        40                                                                      
+        70                                                                      
+        10                                                                      
+        20                                                                      
+
+SQL> create table store_info ( store varchar2(15), sales number(6), tax_date number(9));
+
+Table created.
+
+SQL> insert into store_info values ('&store',&sales,&tax_number);
+Enter value for store: khammam
+Enter value for sales: 2000
+Enter value for tax_number: 14-04-2021
+old   1: insert into store_info values ('&store',&sales,&tax_number)
+new   1: insert into store_info values ('khammam',2000,14-04-2021)
+
+1 row created.
+
+SQL> /
+Enter value for store: hyderabad
+Enter value for sales: 8000
+Enter value for tax_number: 02-02-2021
+old   1: insert into store_info values ('&store',&sales,&tax_number)
+new   1: insert into store_info values ('hyderabad',8000,02-02-2021)
+
+1 row created.
+
+SQL> /
+Enter value for store: chennai
+Enter value for sales: 9000
+Enter value for tax_number: 21-08-2021
+old   1: insert into store_info values ('&store',&sales,&tax_number)
+new   1: insert into store_info values ('chennai',9000,21-08-2021)
+
+1 row created.
+
+SQL> /
+Enter value for store: bilaspur
+Enter value for sales: 999
+Enter value for tax_number: 29-01-2021
+old   1: insert into store_info values ('&store',&sales,&tax_number)
+new   1: insert into store_info values ('bilaspur',999,29-01-2021)
+
+1 row created.
+
+SQL> /
+Enter value for store: antarvedhi
+Enter value for sales: 555
+Enter value for tax_number: 02-02-2022
+old   1: insert into store_info values ('&store',&sales,&tax_number)
+new   1: insert into store_info values ('antarvedhi',555,02-02-2022)
+
+1 row created.
+
+SQL> select 2 from store_info;
+
+         2                                                                      
+----------                                                                      
+         2                                                                      
+         2                                                                      
+         2                                                                      
+         2                                                                      
+         2                                                                      
+
+SQL> select * from store_info;
+
+STORE                SALES   TAX_DATE                                           
+--------------- ---------- ----------                                           
+khammam               2000      -2011                                           
+hyderabad             8000      -2021                                           
+chennai               9000      -2008                                           
+bilaspur               999      -1993                                           
+antarvedhi             555      -2022                                           
+
+SQL> drop table store_info;f
+  2  
+SQL> drop table store_info;
+
+Table dropped.
+
+SQL> create table store_info ( store varchar2(15), sales number(6), tax_date number(9));
+
+Table created.
+
+SQL> insert into store_info values ( 'los angeles', 1500, TO_DATE('2020-12-5','yyyy-mm-dd'));
+insert into store_info values ( 'los angeles', 1500, TO_DATE('2020-12-5','yyyy-mm-dd'))
+                                                     *
+ERROR at line 1:
+ORA-00932: inconsistent datatypes: expected NUMBER got DATE 
+
+
+SQL> drop table store_info;
+
+Table dropped.
+
+SQL> create table store_info ( store varchar2(15), sales number(6), tax_date date);
+
+Table created.
+
+SQL> insert into store_info values ( 'los angeles', 1500, TO_DATE('2020-12-5','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> select * from store_info;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+los angeles           1500 05-DEC-20                                            
+
+SQL> drop table store_info;
+
+Table dropped.
+
+SQL> create table store_info ( store varchar2(15), sales number(6), tax_date date);
+
+Table created.
+
+SQL> insert into store_info values ( 'khammam', 2000, TO_DATE('2020-04-14','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> select * from store_info;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+khammam               2000 14-APR-20                                            
+
+SQL> insert into store_info values ( 'bilaspur', 888, TO_DATE('2010-1-29','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> insert into store_info values ( 'chennai', 5000, TO_DATE('2010-8-21','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> insert into store_info values ( 'hyderabad', 8000, TO_DATE('2018-2-02','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> select * from store_info;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+khammam               2000 14-APR-20                                            
+bilaspur               888 29-JAN-10                                            
+chennai               5000 21-AUG-10                                            
+hyderabad             8000 02-FEB-18                                            
+
+SQL> select * from store_info where sales=4000;
+
+no rows selected
+
+SQL> select * from store_info where sales>1000;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+khammam               2000 14-APR-20                                            
+chennai               5000 21-AUG-10                                            
+hyderabad             8000 02-FEB-18                                            
+
+SQL> select * from store_info where sales<500 and sales>275;
+
+no rows selected
+
+SQL> select * from store_info where sales<1000 and sales>275;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+bilaspur               888 29-JAN-10                                            
+
+SQL> select * from store_info where tax_date between '10-jan-01' and '10-jan-31';
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+khammam               2000 14-APR-20                                            
+bilaspur               888 29-JAN-10                                            
+chennai               5000 21-AUG-10                                            
+hyderabad             8000 02-FEB-18                                            
+
+SQL> select * from store_info where store like '%an%';
+
+no rows selected
+
+SQL> select * from store_info order by sales desc;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+hyderabad             8000 02-FEB-18                                            
+chennai               5000 21-AUG-10                                            
+khammam               2000 14-APR-20                                            
+bilaspur               888 29-JAN-10                                            
+
+SQL> select * from store_info where tax_date between '10-jan-01' and '10-feb-31';
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+khammam               2000 14-APR-20                                            
+bilaspur               888 29-JAN-10                                            
+chennai               5000 21-AUG-10                                            
+hyderabad             8000 02-FEB-18                                            
+
+SQL> spool off
