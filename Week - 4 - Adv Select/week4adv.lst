@@ -1,0 +1,195 @@
+SQL> create table inventory(store varchar2(15), sales number(6), tax_date date);
+
+Table created.
+
+SQL> insert into inventory values('sairam', 11,to_date('2002-4-14','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> insert into inventory values('dush', 29,to_date('2020-1-29','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> select * from inventory;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+sairam                  11 14-APR-02                                            
+dush                    29 29-JAN-20                                            
+
+SQL> insert into inventory values('roe', 170,to_date('2019-8-24','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> insert into inventory values('ab', 222,to_date('2014-2-02','yyyy-mm-dd'));
+
+1 row created.
+
+SQL> create table geo(reg_name varchar2(10), store varchar2(15));
+
+Table created.
+
+SQL> insert into geo values('east','sairam');
+
+1 row created.
+
+SQL> insert into geo values('west','dush');
+
+1 row created.
+
+SQL> insert into geo values('north','roe');
+
+1 row created.
+
+SQL> insert into geo values('south','ab');
+
+1 row created.
+
+SQL> select * from geo;
+
+REG_NAME   STORE                                                                
+---------- ---------------                                                      
+east       sairam                                                               
+west       dush                                                                 
+north      roe                                                                  
+south      ab                                                                   
+
+SQL> select * from inventory fetch first 3 rows only;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+sairam                  11 14-APR-02                                            
+dush                    29 29-JAN-20                                            
+roe                    170 24-AUG-19                                            
+
+SQL> select * from inventory fetch first 50 percent rows only;
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+sairam                  11 14-APR-02                                            
+dush                    29 29-JAN-20                                            
+
+SQL> insert into geo values('east','lavan');
+
+1 row created.
+
+SQL> select * from geo;
+
+REG_NAME   STORE                                                                
+---------- ---------------                                                      
+east       sairam                                                               
+west       dush                                                                 
+north      roe                                                                  
+south      ab                                                                   
+east       lavan                                                                
+
+SQL> select * from inventory where exists (select * from geo where geo.store = inventory.store);
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+sairam                  11 14-APR-02                                            
+dush                    29 29-JAN-20                                            
+roe                    170 24-AUG-19                                            
+ab                     222 02-FEB-14                                            
+
+SQL> select * from inventory where exists (select * from geo where geo.store = inventory.store and inventory.sales>20);
+
+STORE                SALES TAX_DATE                                             
+--------------- ---------- ---------                                            
+dush                    29 29-JAN-20                                            
+roe                    170 24-AUG-19                                            
+ab                     222 02-FEB-14                                            
+
+SQL> select store from inventory where exists(select * from geo where geo.store = inventory.store and inventory.store > 100);
+select store from inventory where exists(select * from geo where geo.store = inventory.store and inventory.store > 100)
+                                                                                                 *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> select store from inventory where exists(select * from geo where geo.store = inventory.store and inventory.sales > 100);
+
+STORE                                                                           
+---------------                                                                 
+roe                                                                             
+ab                                                                              
+
+SQL> select store from inventory where exists(select * from geo where geo.store = inventory.store and inventory.sales < 200);
+
+STORE                                                                           
+---------------                                                                 
+sairam                                                                          
+dush                                                                            
+roe                                                                             
+
+SQL> select store from inventory where exists(select * from geo where geo.store = inventory.store and inventory.sales = 11);
+
+STORE                                                                           
+---------------                                                                 
+sairam                                                                          
+
+SQL> select store, case store when 'sairam' then sales*2 when 'dush' then sales*3 else sales end "new-sales" ,tax_date from inventory;
+
+STORE            new-sales TAX_DATE                                             
+--------------- ---------- ---------                                            
+sairam                  22 14-APR-02                                            
+dush                    87 29-JAN-20                                            
+roe                    170 24-AUG-19                                            
+ab                     222 02-FEB-14                                            
+
+SQL> select store, case store when 'sairam' then sales*6 when 'dush' then sales*3 else sales end "new-sales" ,tax_date from inventory;
+
+STORE            new-sales TAX_DATE                                             
+--------------- ---------- ---------                                            
+sairam                  66 14-APR-02                                            
+dush                    87 29-JAN-20                                            
+roe                    170 24-AUG-19                                            
+ab                     222 02-FEB-14                                            
+
+SQL> create sequence store_id minvalue 1 start with increment by 1 cache 15;
+create sequence store_id minvalue 1 start with increment by 1 cache 15
+                                               *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> create sequence store_id minvalue 1 start with 1 increment by 1 cache 15;
+
+Sequence created.
+
+SQL> alter table inventory add storeid number(4);
+
+Table altered.
+
+SQL> select * from inventory;
+
+STORE                SALES TAX_DATE     STOREID                                 
+--------------- ---------- --------- ----------                                 
+sairam                  11 14-APR-02                                            
+dush                    29 29-JAN-20                                            
+roe                    170 24-AUG-19                                            
+ab                     222 02-FEB-14                                            
+
+SQL> insert into inventory (store,sales,tax_date,storeid) values ('lavan', 1000, to_date('2002-01-14', 'yyyy-mm-dd'), store_id.nextval);
+
+1 row created.
+
+SQL> select * from inventory;
+
+STORE                SALES TAX_DATE     STOREID                                 
+--------------- ---------- --------- ----------                                 
+sairam                  11 14-APR-02                                            
+dush                    29 29-JAN-20                                            
+roe                    170 24-AUG-19                                            
+ab                     222 02-FEB-14                                            
+lavan                 1000 14-JAN-02          1                                 
+
+SQL> drop table inventory;
+
+Table dropped.
+
+SQL> drop table geo;
+
+Table dropped.
+
+SQL> exit
