@@ -1,0 +1,119 @@
+SQL> create table parent(id number(10) primary key, name varchar(10), pay number(6));
+
+Table created.
+
+SQL> insert into parent values(021, 'Sairam', 200000);
+
+1 row created.
+
+SQL> insert into parent values(014, 'lavan', 170000);
+
+1 row created.
+
+SQL> desc parent;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(10)
+ NAME                                               VARCHAR2(10)
+ PAY                                                NUMBER(6)
+
+SQL> select * from parent;
+
+        ID NAME              PAY                                                
+---------- ---------- ----------                                                
+        21 Sairam         200000                                                
+        14 lavan          170000                                                
+
+SQL> create table child(role varchar(15), id number(10) references parent(id));
+
+Table created.
+
+SQL> insert into child values('Entrepreneur', 021);
+
+1 row created.
+
+SQL> insert into child values('Manager', 014);
+
+1 row created.
+
+SQL> select * from child;
+
+ROLE                    ID                                                      
+--------------- ----------                                                      
+Entrepreneur            21                                                      
+Manager                 14                                                      
+
+SQL> Alter table parent modify pay number(6) not null;
+
+Table altered.
+
+SQL> insert into parent values(011, 'Lucky', NULL);
+insert into parent values(011, 'Lucky', NULL)
+                                        *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("RA1911033010021"."PARENT"."PAY") 
+
+
+SQL> Alter table parent add check (pay>=150000);
+
+Table altered.
+
+SQL> insert into parent values(011, 'Lucky', 150000);
+
+1 row created.
+
+SQL> insert into parent values(011, 'Lucky', 10000);
+insert into parent values(011, 'Lucky', 10000)
+*
+ERROR at line 1:
+ORA-02290: check constraint (RA1911033010021.SYS_C006216) violated 
+
+
+SQL> create index i1 on parent(pay);
+
+Index created.
+
+SQL> set autotrace on explain
+SQL> select * from parent where pay=150000;
+
+        ID NAME              PAY                                                
+---------- ---------- ----------                                                
+        11 Lucky          150000                                                
+
+
+Execution Plan
+----------------------------------------------------------                      
+Plan hash value: 2998437169                                                     
+                                                                                
+--------------------------------------------------------------------------------
+--------------                                                                  
+                                                                                
+| Id  | Operation                           | Name   | Rows  | Bytes | Cost (%CP
+U)| Time     |                                                                  
+                                                                                
+--------------------------------------------------------------------------------
+--------------                                                                  
+                                                                                
+|   0 | SELECT STATEMENT                    |        |     1 |    33 |     2   (
+0)| 00:00:01 |                                                                  
+                                                                                
+|   1 |  TABLE ACCESS BY INDEX ROWID BATCHED| PARENT |     1 |    33 |     2   (
+0)| 00:00:01 |                                                                  
+                                                                                
+|*  2 |   INDEX RANGE SCAN                  | I1     |     1 |       |     1   (
+0)| 00:00:01 |                                                                  
+                                                                                
+--------------------------------------------------------------------------------
+--------------                                                                  
+                                                                                
+                                                                                
+Predicate Information (identified by operation id):                             
+---------------------------------------------------                             
+                                                                                
+   2 - access("PAY"=150000)                                                     
+                                                                                
+Note                                                                            
+-----                                                                           
+   - dynamic statistics used: dynamic sampling (level=2)                        
+
+SQL> spool off
