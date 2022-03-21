@@ -1,0 +1,332 @@
+SQL*Plus: Release 11.2.0.4.0 Production on Mon Mar 21 08:17:34 2022
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+Enter user-name: RA1911033010021/RA1911033010021@3.232.175.251:1521/ORCL
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+
+SQL> select upper('welcome') from dual;
+
+UPPER('
+-------
+WELCOME
+
+SQL> select upper('hai') from dual;
+
+UPP
+---
+HAI
+
+SQL> select upper('HAI') from dual;
+
+UPP
+---
+HAI
+
+SQL> select initcap('hello world') from dual;
+
+INITCAP('HE
+-----------
+Hello World
+
+SQL> select ltrim('hai') from dual;
+
+LTR
+---
+hai
+
+SQL> select rtrim('hai') from dual;
+
+RTR
+---
+hai
+
+SQL> select rtrim('  hai  ') from dual;
+
+RTRIM
+-----
+  hai
+
+SQL> select concat('SRM','university') from dual;
+
+CONCAT('SRM',
+-------------
+SRMuniversity
+
+SQL> select length('SRM') from dual;
+
+LENGTH('SRM')
+-------------
+            3
+
+SQL> select replace('SRM university','SRM','Anna') from dual;
+
+REPLACE('SRMUNI
+---------------
+Anna university
+
+SQL> select substr('SRM',7,6) from dual;
+
+S
+-
+
+
+SQL> select rpad('hai',3,'*') from dual;
+
+RPA
+---
+hai
+
+SQL> select lpad('hai',3,'*') from dual;
+
+LPA
+---
+hai
+
+SQL> select translate('cold','ld','ol') from dual;
+
+TRAN
+----
+cool
+
+SQL> select sysdate from dual;
+
+SYSDATE
+---------
+21-MAR-22
+
+SQL> select round(sysdate) from dual;
+
+ROUND(SYS
+---------
+21-MAR-22
+
+SQL> select add_months(sysdate,3) from dual;
+
+ADD_MONTH
+---------
+21-JUN-22
+
+SQL> select last_day(sysdate) from dual;
+
+LAST_DAY(
+---------
+31-MAR-22
+
+SQL> select sysdate+20 from dual;
+
+SYSDATE+2
+---------
+10-APR-22
+
+SQL> select next_day(sysdate,'tuesday') from dual;
+
+NEXT_DAY(
+---------
+22-MAR-22
+
+SQL> select round(15.6789) from dual;
+
+ROUND(15.6789)
+--------------
+            16
+
+SQL> select ceil(23.20) from dual;
+
+CEIL(23.20)
+-----------
+         24
+
+SQL> select floor(34.56) from dual;
+
+FLOOR(34.56)
+------------
+          34
+
+SQL> select trunc(15.56743) from dual;
+
+TRUNC(15.56743)
+---------------
+             15
+
+SQL> select sign(-345) from dual;
+
+SIGN(-345)
+----------
+        -1
+
+SQL> select abs(-70) from dual;
+
+  ABS(-70)
+----------
+        70
+
+SQL> select abs(45) from dual;
+
+   ABS(45)
+----------
+        45
+
+SQL> select power(10,12) from dual;
+
+POWER(10,12)
+------------
+  1.0000E+12
+
+SQL> select mod(11,5) from dual;
+
+ MOD(11,5)
+----------
+         1
+
+SQL> select exp(10) from dual;
+
+   EXP(10)
+----------
+22026.4658
+
+SQL> select sqrt(225) from dual;
+
+ SQRT(225)
+----------
+        15
+
+SQL> create table emp2(empno number(5), ename varchar2(20), job varchar(20), Sal number(6), Mgrno number(4), Deptno number(3));
+
+Table created.
+
+SQL> insert into emp2 values(1001,'Sairam','Entrepreneur',124002,1435,200);
+
+1 row created.
+
+SQL> insert into emp2 values(1002,'Roehit','Gamer',125494,1500,200);
+
+1 row created.
+
+SQL> insert into emp2 values(1003,'Sanjana','Analyst',100000,1100,201);
+
+1 row created.
+
+SQL> insert into emp2 values(1004,'Aishwarya','Designer',200000,1400,201);
+
+1 row created.
+
+SQL> insert into emp2 values(1005,'Dushyant','Developer',125000,1500,202);
+
+1 row created.
+
+SQL> insert into emp2 values(1005,'Abhi','Scientist',145000,1400,203);
+
+1 row created.
+
+SQL> insert into emp2 values(1006,'lavan','CEO',500000,1435,200);
+
+1 row created.
+
+SQL> select * from emp2;
+
+     EMPNO ENAME                JOB                         SAL      MGRNO
+---------- -------------------- -------------------- ---------- ----------
+    DEPTNO
+----------
+      1001 Sairam               Entrepreneur             124002       1435
+       200
+
+      1002 Roehit               Gamer                    125494       1500
+       200
+
+      1003 Sanjana              Analyst                  100000       1100
+       201
+
+
+     EMPNO ENAME                JOB                         SAL      MGRNO
+---------- -------------------- -------------------- ---------- ----------
+    DEPTNO
+----------
+      1004 Aishwarya            Designer                 200000       1400
+       201
+
+      1005 Dushyant             Developer                125000       1500
+       202
+
+      1005 Abhi                 Scientist                145000       1400
+       203
+
+
+     EMPNO ENAME                JOB                         SAL      MGRNO
+---------- -------------------- -------------------- ---------- ----------
+    DEPTNO
+----------
+      1006 lavan                CEO                      500000       1435
+       200
+
+
+7 rows selected.
+
+SQL> create table dept2(deptno number(3), deptname varchar2(10), location varchar2(15));
+
+Table created.
+
+SQL> insert into dept2 values(107,'Develop','Chennai');
+
+1 row created.
+
+SQL> insert into dept2 values(201,'Debug','Khammam');
+
+1 row created.
+
+SQL> insert into dept2 values(200,'Test','Khammam');
+
+1 row created.
+
+SQL> insert into dept2 values(201,'Test','Hyderabad');
+
+1 row created.
+
+SQL> insert into dept2 values(108,'Debug','Bilaspur');
+
+1 row created.
+
+SQL> insert into dept2 values(109,'Build','Potheri');
+
+1 row created.
+
+SQL> select * from dept2;
+
+    DEPTNO DEPTNAME   LOCATION
+---------- ---------- ---------------
+       107 Develop    Chennai
+       201 Debug      Khammam
+       200 Test       Khammam
+       201 Test       Hyderabad
+       108 Debug      Bilaspur
+       109 Build      Potheri
+
+6 rows selected.
+
+SQL> select ename from emp2 where Sal>(select Min(Sal) from emp2 where Sal>(select Min(Sal) from emp2 where deptno=(select deptno from dept2 where location='khammam'));
+select ename from emp2 where Sal>(select Min(Sal) from emp2 where Sal>(select Min(Sal) from emp2 where deptno=(select deptno from dept2 where location='khammam'))
+                                  *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command
+
+
+SQL> select ename from emp2 where Sal>(select Min(Sal) from emp2 where Sal>(select Min(Sal) from emp2 where deptno=(select deptno from dept2 where location='khammam'));
+select ename from emp2 where Sal>(select Min(Sal) from emp2 where Sal>(select Min(Sal) from emp2 where deptno=(select deptno from dept2 where location='khammam'))
+                                  *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command
+
+
+SQL> select ename from emp2 where Sal>(select Min(Sal) from emp2 where Sal>(select Min(Sal) from emp2 where deptno=(select deptno from dept2 where location='khammam'));
+select ename from emp2 where Sal>(select Min(Sal) from emp2 where Sal>(select Min(Sal) from emp2 where deptno=(select deptno from dept2 where location='khammam'))
+                                  *
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command
+
+
+SQL> select ename from emp2 where Sal>(select Min(Sal) from emp2 where deptno=(select deptno from dept2 where location='khammam'));
+
+no rows selected
