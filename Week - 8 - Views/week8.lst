@@ -1,0 +1,211 @@
+SQL> create table employeee(name varchar2(10),num number(8),dept_name varchar2(10),dept_no number(5),date_of_join Date);
+
+Table created.
+
+SQL> desc employeee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NAME                                               VARCHAR2(10)
+ NUM                                                NUMBER(8)
+ DEPT_NAME                                          VARCHAR2(10)
+ DEPT_NO                                            NUMBER(5)
+ DATE_OF_JOIN                                       DATE
+
+SQL> create view empview as select name,num,dept_name,dept_no,date_of_join from employeee;
+
+View created.
+
+SQL> desc empview;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NAME                                               VARCHAR2(10)
+ NUM                                                NUMBER(8)
+ DEPT_NAME                                          VARCHAR2(10)
+ DEPT_NO                                            NUMBER(5)
+ DATE_OF_JOIN                                       DATE
+
+SQL> insert into employeee values('&name',&num,'&dept_name',&dept_no,'&date_of_join');
+Enter value for name: sudhan
+Enter value for num: 132
+Enter value for dept_name: cse
+Enter value for dept_no: 85
+Enter value for date_of_join: 14-APR-22
+old   1: insert into employeee values('&name',&num,'&dept_name',&dept_no,'&date_of_join')
+new   1: insert into employeee values('sairam',021,'cse',85,'14-APR-22')
+
+1 row created.
+
+SQL> /
+Enter value for name: vedha
+Enter value for num: 140
+Enter value for dept_name: ece
+Enter value for dept_no: 88
+Enter value for date_of_join: 20-feb-2020
+old   1: insert into employeee values('&name',&num,'&dept_name',&dept_no,'&date_of_join')
+new   1: insert into employeee values('kaju',021,'cse',88,'20-feb-2020')
+
+1 row created.
+
+SQL> /
+Enter value for name: vijay
+Enter value for num: 017
+Enter value for dept_name: cse
+Enter value for dept_no: 84
+Enter value for date_of_join: 22-jan-16
+old   1: insert into employeee values('&name',&num,'&dept_name',&dept_no,'&date_of_join')
+new   1: insert into employeee values('raju',017,'cse',84,'22-jan-16')
+
+1 row created.
+
+SQL> /
+Enter value for name: venkat
+Enter value for num: 785
+Enter value for dept_name: mech
+Enter value for dept_no: 75
+Enter value for date_of_join: 06-jun-2014
+old   1: insert into employeee values('&name',&num,'&dept_name',&dept_no,'&date_of_join')
+new   1: insert into employeee values('saju',75,'mech',75,'06-jun-2014')
+
+1 row created.
+
+SQL> /
+Enter value for name: ishi
+Enter value for num: 133
+Enter value for dept_name: cse
+Enter value for dept_no: 85
+Enter value for date_of_join: 8-may-17
+old   1: insert into employeee values('&name',&num,'&dept_name',&dept_no,'&date_of_join')
+new   1: insert into employeee values('sin',133,'cse',85,'8-may-17')
+
+1 row created.
+
+SQL> select * from empview;
+
+AME              NUM DEPT_NAME     DEPT_NO DATE_OF_J                           
+---------- ---------- ---------- ---------- ---------                           
+sairam            021 cse                85 14-APR-22                           
+kaju             140 cse                88 20-FEB-20                           
+raju              17 cse                84 22-JAN-16                           
+saju            785 mech               75 06-JUN-14                           
+sin              133 cse                85 08-MAY-17                             
+
+SQL> insert into empview values('shaw',120,'biotech',67,'16-nov-08');
+
+1 row created.
+
+SQL> select * from empview;
+
+NAME              NUM DEPT_NAME     DEPT_NO DATE_OF_J                           
+---------- ---------- ---------- ---------- ---------                           
+sairam            021 cse                85 14-APR-22                           
+kaju             140 cse                88 20-FEB-20                           
+raju              17 cse                84 22-JAN-16                           
+saju            785 mech               75 06-JUN-14                           
+sin              133 cse                85 08-MAY-17                           
+shaw               120 biotech            67 16-NOV-08                           
+
+6 rows selected.
+
+SQL> select * from employeee;
+
+NAME              NUM DEPT_NAME     DEPT_NO DATE_OF_J                           
+---------- ---------- ---------- ---------- ---------                           
+sairam            021 cse                85 14-APR-22                           
+kaju             140 cse                88 20-FEB-20                           
+raju              17 cse                84 22-JAN-16                           
+saju            785 mech               75 06-JUN-14                           
+sin              133 cse                85 08-MAY-17                           
+shaw               120 biotech            67 16-NOV-08                           
+
+6 rows selected.
+
+SQL> delete from empview where name='sri';
+
+1 row deleted.
+
+SQL> select *from empview;
+
+NAME              NUM DEPT_NAME     DEPT_NO DATE_OF_J                           
+---------- ---------- ---------- ---------- ---------                           
+sairam            021 cse                85 14-APR-22                           
+kaju             140 cse                88 20-FEB-20                           
+raju              17 cse                84 22-JAN-16                           
+saju            75 mech               75 06-JUN-14                           
+sin              133 cse                85 08-MAY-17                           
+shaw               120 biotech            67 16-NOV-08                           
+
+SQL> update empview set name='aksh' where name='raju';
+
+1 row updated.
+
+SQL> select * from empview;
+
+NAME              NUM DEPT_NAME     DEPT_NO DATE_OF_J                           
+---------- ---------- ---------- ---------- ---------                           
+sairam            021 cse                85 14-APR-22                           
+kaju             140 ece                88 20-FEB-20                           
+aksh            17 cse                84 22-JAN-16                           
+saju            75 mech               75 06-JUN-14                           
+sin              133 cse                85 08-MAY-17                           
+
+SQL> drop view empview;
+
+View dropped.
+
+SQL> create or replace view empview1 as select name,num,dept_name from employeee;
+
+View created.
+
+SQL> select * from empview1;
+
+NAME              NUM DEPT_NAME                                                 
+---------- ---------- ----------                                                
+sairam            021 cse                                                       
+kaju             140 ece                                                       
+aksh            17 cse                                                       
+saju            75 mech                                                      
+sin              133 cse                                                       
+
+SQL> create or replace view empview2 as select * from employeee where dept_name='cse';
+
+View created.
+
+SQL> select * from empview2;
+
+NAME              NUM DEPT_NAME     DEPT_NO DATE_OF_J                           
+---------- ---------- ---------- ---------- ---------                           
+sairam            021 cse                85 14-APR-22                           
+aksh            17 cse                84 22-JAN-16                           
+sin              133 cse                85 08-MAY-17                           
+
+SQL> create or replace view empview3(ename,eid,edept) as select name,num,dept_name from employeee;
+
+View created.
+
+SQL> select * from empview3;
+
+ENAME             EID EDEPT                                                     
+---------- ---------- ----------                                                
+sairam            021 cse                                                       
+kaju             140 ece                                                       
+aksh            17 cse                                                       
+saju            75 mech                                                      
+sin              133 cse                                                       
+
+
+
+SQL> create or replace view empview4 as select name "ename",num "eid",dept_name "edept" from employeee;
+
+View created.
+
+SQL> select * from empview3;
+
+ENAME             EID EDEPT                                                     
+---------- ---------- ----------                                                
+sairam            021 cse                                                       
+kaju             140 ece                                                       
+aksh            17 cse                                                       
+saju            75 mech                                                      
+sin              133 cse                                                      
+
+SQL> spool off
