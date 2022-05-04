@@ -1,0 +1,235 @@
+SQL> CREATE TABLE orders(O_id number(5),  Orderno number(5), P_Id number(3));
+CREATE TABLE orders(O_id number(5),  Orderno number(5), P_Id number(3))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> CREATE TABLE orderss(O_id number(5),  Orderno number(5), P_Id number(3));
+
+Table created.
+
+SQL> desc orderss;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ O_ID                                               NUMBER(5)
+ ORDERNO                                            NUMBER(5)
+ P_ID                                               NUMBER(3)
+
+SQL> INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id);
+Enter value for o_id: 1
+Enter value for orderno: 12345
+Enter value for p_id: 3
+old   1: INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id)
+new   1: INSERT INTO orderss VALUES(1, 12345, 3)
+
+1 row created.
+
+SQL> INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id);
+Enter value for o_id: 2
+Enter value for orderno: 65478
+Enter value for p_id: 3
+old   1: INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id)
+new   1: INSERT INTO orderss VALUES(2, 65478, 3)
+
+1 row created.
+
+SQL> INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id);
+Enter value for o_id: 3
+Enter value for orderno: 98745
+Enter value for p_id: 1
+old   1: INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id)
+new   1: INSERT INTO orderss VALUES(3, 98745, 1)
+
+1 row created.
+
+SQL> INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id);
+Enter value for o_id: 4
+Enter value for orderno: 49765
+Enter value for p_id: 1
+old   1: INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id)
+new   1: INSERT INTO orderss VALUES(4, 49765, 1)
+
+1 row created.
+
+SQL> INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id);
+Enter value for o_id: 5
+Enter value for orderno: 87564
+Enter value for p_id: 15
+old   1: INSERT INTO orderss VALUES(&O_id, &Orderno, &P_Id)
+new   1: INSERT INTO orderss VALUES(5, 87564, 15)
+
+1 row created.
+
+SQL> SELECT * FROM orderss;
+
+      O_ID    ORDERNO       P_ID                                                
+---------- ---------- ----------                                                
+         1      12345          3                                                
+         2      65478          3                                                
+         3      98745          1                                                
+         4      49765          1                                                
+         5      87564         15                                                
+
+SQL> CREATE TABLE personss(p_id number(5), LASTNAME varchar2(10), Firstname varchar2(15), Addresz varchar2(20), city varchar2(10));
+
+Table created.
+
+SQL> desc personss;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ P_ID                                               NUMBER(5)
+ LASTNAME                                           VARCHAR2(10)
+ FIRSTNAME                                          VARCHAR2(15)
+ ADDRESZ                                            VARCHAR2(20)
+ CITY                                               VARCHAR2(10)
+
+SQL> INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city');
+Enter value for p_id: 1
+Enter value for lastname: nomula
+Enter value for firstname: sairam
+Enter value for addresz: gandhichowk
+Enter value for city: kmm
+old   1: INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city')
+new   1: INSERT INTO personss VALUES(1,'nomula', 'sairam', 'gandhichowk', 'kmm')
+
+1 row created.
+
+SQL> INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city');
+Enter value for p_id: 2
+Enter value for lastname: bommerla
+Enter value for firstname: abhighyan
+Enter value for addresz: ramnagar
+Enter value for city: hyd
+old   1: INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city')
+new   1: INSERT INTO personss VALUES(2,'bommerla', 'abhighyan', 'ramnagar', 'hyd')
+
+1 row created.
+
+SQL> INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city');
+Enter value for p_id: 3
+Enter value for lastname: ranganathan
+Enter value for firstname: roehit
+Enter value for addresz: pallavaram
+Enter value for city: chennai
+old   1: INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city')
+new   1: INSERT INTO personss VALUES(3,'ranganathan', 'roehit', 'pallavaram', 'chennai')
+INSERT INTO personss VALUES(3,'ranganathan', 'roehit', 'pallavaram', 'chennai')
+                              *
+ERROR at line 1:
+ORA-12899: value too large for column "RA1911033010021"."PERSONSS"."LASTNAME" 
+(actual: 11, maximum: 10) 
+
+
+SQL> INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city');
+Enter value for p_id: 4
+Enter value for lastname: reddy
+Enter value for firstname: dush
+Enter value for addresz: billa
+Enter value for city: bilaspur
+old   1: INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city')
+new   1: INSERT INTO personss VALUES(4,'reddy', 'dush', 'billa', 'bilaspur')
+
+1 row created.
+
+SQL> INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city');
+Enter value for p_id: 5
+Enter value for lastname: lan
+Enter value for firstname: mike
+Enter value for addresz: hins
+Enter value for city: usa
+old   1: INSERT INTO personss VALUES(&p_id,'&LASTNAME', '&Firstname', '&Addresz', '&city')
+new   1: INSERT INTO personss VALUES(5,'lan', 'mike', 'hins', 'usa')
+
+1 row created.
+
+SQL> SELECT * FROM personss;
+
+      P_ID LASTNAME   FIRSTNAME       ADDRESZ              CITY                 
+---------- ---------- --------------- -------------------- ----------           
+         1 nomula     sairam          gandhichowk          kmm                  
+         2 bommerla   abhighyan       ramnagar             hyd                  
+         4 reddy      dush            billa                bilaspur             
+         5 lan        mike            hins                 usa                  
+
+SQL> SELECT personss.LASTNAME,personss.Firstname,orderss.Orderno From personss LEFT JOIN orderss ON personss.p_id = orderss.p_id ORDER BY personss.LASTNAME;
+
+LASTNAME   FIRSTNAME          ORDERNO                                           
+---------- --------------- ----------                                           
+bommerla   abhighyan                                                            
+lan        mike                                                                 
+nomula     sairam               49765                                           
+nomula     sairam               98745                                           
+reddy      dush                                                                 
+
+SQL> SELECT * FROM orderss;
+
+      O_ID    ORDERNO       P_ID                                                
+---------- ---------- ----------                                                
+         1      12345          3                                                
+         2      65478          3                                                
+         3      98745          1                                                
+         4      49765          1                                                
+         5      87564         15                                                
+
+SQL> SELECT * FROM personss;
+
+      P_ID LASTNAME   FIRSTNAME       ADDRESZ              CITY                 
+---------- ---------- --------------- -------------------- ----------           
+         1 nomula     sairam          gandhichowk          kmm                  
+         2 bommerla   abhighyan       ramnagar             hyd                  
+         4 reddy      dush            billa                bilaspur             
+         5 lan        mike            hins                 usa                  
+
+SQL> SELECT personss.LASTNAME, personss.Firstname, orderss.Orderno FROM personss FULL OUTER JOIN orderss ON personss.p_id = orderss.p_id ORDER BY personss.LASTNAME;
+
+LASTNAME   FIRSTNAME          ORDERNO                                           
+---------- --------------- ----------                                           
+bommerla   abhighyan                                                            
+lan        mike                                                                 
+nomula     sairam               98745                                           
+nomula     sairam               49765                                           
+reddy      dush                                                                 
+                                87564                                           
+                                12345                                           
+                                65478                                           
+
+8 rows selected.
+
+SQL> SELECT personss.LASTNAME, personss.Firstname, orderss.Orderno FROM personss RIGHT OUTER JOIN orderss ON personss.p_id = orderss.p_id ORDER BY personss.LASTNAME;
+
+LASTNAME   FIRSTNAME          ORDERNO                                           
+---------- --------------- ----------                                           
+nomula     sairam               49765                                           
+nomula     sairam               98745                                           
+                                12345                                           
+                                65478                                           
+                                87564                                           
+
+SQL> SELECT personss.LASTNAME, personss.Firstname, orderss.Orderno FROM personss INNER JOIN orderss ON personss.p_id = orderss.p_id ORDER BY personss.LASTNAME;
+
+LASTNAME   FIRSTNAME          ORDERNO                                           
+---------- --------------- ----------                                           
+nomula     sairam               49765                                           
+nomula     sairam               98745                                           
+
+SQL> select * from personss;
+
+      P_ID LASTNAME   FIRSTNAME       ADDRESZ              CITY                 
+---------- ---------- --------------- -------------------- ----------           
+         1 nomula     sairam          gandhichowk          kmm                  
+         2 bommerla   abhighyan       ramnagar             hyd                  
+         4 reddy      dush            billa                bilaspur             
+         5 lan        mike            hins                 usa                  
+
+SQL> select * from orderss;
+
+      O_ID    ORDERNO       P_ID                                                
+---------- ---------- ----------                                                
+         1      12345          3                                                
+         2      65478          3                                                
+         3      98745          1                                                
+         4      49765          1                                                
+         5      87564         15                                                
+
+SQL> spool off
