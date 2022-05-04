@@ -1,0 +1,82 @@
+SQL> set serveroutput on;
+SQL> DECLARE
+  2  message varchar(20):='Hello World';
+  3  BEGIN
+  4  dbms_output.put_line(message);
+  5  END;
+  6  /
+Hello World                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  a integer:=10;
+  3  b integer:=20;
+  4  c integer;
+  5  f real;
+  6  BEGIN
+  7  c:=a+b;
+  8  dbms_output.put_line('Value of c:'||c);
+  9  f:=100.0/3.0;
+ 10  dbms_output.put_line('Value of f:'||f);
+ 11  END;
+ 12  /
+Value of c:30                                                                   
+Value of f:33.33333333333333333333333333333333333333                            
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  n1 number:=10;
+  3  n2 number:=20;
+  4  BEGIN
+  5  dbms_output.put_line('Outer var n1:'||n1);
+  6  dbms_output.put_line('Outer var n2:'||n2);
+  7  DECLARE
+  8  n1 number:=30;
+  9  n1 number:=40;
+ 10  BEGIN
+ 11  dbms_output.put_line('Inner var n1:'||n1);
+ 12  dbms_output.put_line('Inner var n2:'||n2);
+ 13  END;
+ 14  dbms_output.put_line('Inner var n1:'||n1);
+ 15  dbms_output.put_line('Inner var n2:'||n2);
+ 16  END;
+ 17  /
+PL/SQL: Statement ignored 
+
+
+SQL> DECLARE
+  2  n number:&n;
+  3  BEGIN
+  4  if mod(n,2)=0
+  5  then
+  6  dbms_output.put_line('Number even');
+  7  else
+  8  dbms_output.put_line('Number odd');
+  9  end if;
+ 10  END;
+ 11  /
+Enter value for n: 5
+old   2: n number:&n;
+new   2: n number:5;
+SP2-0552: Bind variable "5" not declared.
+SQL> DECLARE
+  2  n number;
+  3  PROCEDURE
+  4  square(x IN OUT number)IS
+  5  BEGIN
+  6  x:=x*x;
+  7  END;
+  8  BEGIN
+  9  a:=5;
+ 10  square(a);
+ 11  dbms_output.put_line('Square of(5):'||a);
+ 12  END;
+ 13  /
+
+
+DECLARE
+
+
+SQL> spool off;
